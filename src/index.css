@@ -44,3 +44,15 @@
   @apply bg-white/20;
 }
 
+@keyframes laser-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.path-highlight-link {
+  stroke-dasharray: 8, 4;
+  animation: laser-flow 1.2s linear infinite;
+}
+
+
