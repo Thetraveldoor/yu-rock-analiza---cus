@@ -41,7 +41,7 @@ Sustav je podijeljen u tri glavne komponente:
 - **DetailPanel:** Kontekstualni prozor koji se aktivira selekcijom čvora i prikazuje detaljne metapodatke entiteta koristeći asinkrono filtriranje relacija.
 - **Data Engine:** Centralni repozitorij (`data.ts`) koji služi kao jedini izvor podataka (single source of truth) za sve komponente sustava.
 
-### 4. Rasprava i Rezultati
+### 4. Rezultati
 
 Implementacija vizualizacije potvrđuje da grafički prikaz centralnih čvorova (poput Bijelog Dugmeta ili Azre) jasno demonstrira njihovu ulogu kao gravitacijskih čvorišta scene. Analiza migracijskih veza otkriva dva strukturalna tipa glazbenika: **osovinske** (osnivači koji ostaju konstanta benda, npr. Goran Bregović, Johnny Štulić, Jasenko Houra) i **migracijske** (glazbenici koji prenose ideje između bendova, npr. Kornelije Kovač: Indexi → Korni grupa; Milan Mladenović: Šarlo akrobata → EKV; Bajaga: Riblja čorba → Bajaga i Instruktori).
 
