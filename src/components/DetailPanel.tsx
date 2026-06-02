@@ -135,6 +135,24 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ node, onClose, onNodeSelect }
           )}
         </div>
 
+        {/* Lyrics Section */}
+        {node.type === 'Song' && node.details?.tekst && (
+          <div className="space-y-2.5 bg-rose-500/5 p-4 rounded-xl border border-rose-500/20">
+            <span className="text-[9px] uppercase tracking-widest text-rose-400 font-bold font-mono flex items-center gap-1.5">
+              <Music size={12} className="text-rose-500" />
+              <span>Stihovi i Tekst Pjesme</span>
+            </span>
+            <div className="max-h-64 overflow-y-auto custom-scrollbar text-center py-4 px-3 bg-black/40 rounded-lg border border-white/5 relative">
+              <pre className="text-xs text-rose-100/95 leading-loose font-serif whitespace-pre-wrap select-text italic">
+                {node.details.tekst}
+              </pre>
+            </div>
+            <div className="text-[8px] text-slate-500 font-mono text-center tracking-wider">
+              IZVOR PODATAKA: TEKSTOVI.NET
+            </div>
+          </div>
+        )}
+
         {/* Connected relationships list */}
         <div className="space-y-3">
           <div className="text-[9px] uppercase text-slate-500 tracking-widest font-mono font-bold border-b border-white/10 pb-2 flex justify-between items-center">

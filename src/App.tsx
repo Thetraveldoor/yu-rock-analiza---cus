@@ -28,7 +28,7 @@ export default function App() {
           </div>
           <div>
             <h1 className="text-sm sm:text-base font-black tracking-tight uppercase leading-none text-white flex items-center gap-2">
-              Mreža Yu Rock Zvuka
+              Mreža Yu Scene
               <span className="text-[9px] bg-cyan-500/10 text-cyan-400 font-mono py-0.5 px-1.5 rounded-full border border-cyan-500/10 font-bold hidden xs:inline">ARHIV v3.2</span>
             </h1>
           </div>

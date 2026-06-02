@@ -228,7 +228,7 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ onNodeSelect, selectedNodeI
         ].includes(type);
       }
       if (relationFilter === 'influence') {
-        return ['rivalstvo', 'prijateljstvo/utjecaj'].includes(type);
+        return ['rivalstvo', 'prijateljstvo/utjecaj', 'tematska_poveznica', 'stil_teksta'].includes(type);
       }
       if (relationFilter === 'personal') {
         return ['brak', 'obiteljska_veza', 'prijateljstvo/ljubavna_veza'].includes(type);
@@ -265,8 +265,9 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ onNodeSelect, selectedNodeI
         if (!isLinkMatchingFilter(d)) return 'rgba(255, 255, 255, 0.02)';
         
         if (d.type === 'pripadnost' || d.type === 'clanstvo_kratko' || d.type === 'rivalstvo/clanstvo') return '#06b6d4';
-        if (d.type === 'suradnja' || d.type === 'umjetnicka_suradnja' || d.type === 'tekstopisac_↔_pjevac' || d.type === 'autorstvo/pjesma' || d.type === 'producent_↔_izvodjac') return '#d946ef';
+        if (d.type === 'suradnja' || d.type === 'umjetnicka_suradnja' || d.type === 'tekstopisac_↔_pjevac' || d.type === 'autorstvo/pjesma' || d.type === 'producent_↔_izvodjac' || d.type === 'izdavanje' || d.type === 'izdanje_pjesme' || d.type === 'sudjelovanje') return '#d946ef';
         if (d.type === 'brak' || d.type === 'obiteljska_veza' || d.type === 'prijateljstvo/ljubavna_veza') return '#f43f5e';
+        if (d.type === 'tematska_poveznica' || d.type === 'stil_teksta') return '#eab308';
         return '#cbd5e1';
       })
       .attr('class', (d: any) => {
@@ -277,27 +278,27 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ onNodeSelect, selectedNodeI
       })
       .attr('stroke-opacity', (d: any) => {
         if (activePath) {
-          return isLinkInActivePath(d) ? 1.0 : 0.02;
+          return isLinkInActivePath(d) ? 1.0 : 0.05;
         }
-        if (!isLinkMatchingFilter(d)) return 0.02;
-        if (selectedNodeId === null) return 0.5;
+        if (!isLinkMatchingFilter(d)) return 0.05;
+        if (selectedNodeId === null) return 0.65;
         const sId = (d.source as any).id || d.source;
         const tId = (d.target as any).id || d.target;
-        return (sId === selectedNodeId || tId === selectedNodeId) ? 0.95 : 0.05;
+        return (sId === selectedNodeId || tId === selectedNodeId) ? 0.95 : 0.08;
       })
       .attr('stroke-width', (d: any) => {
         if (activePath) {
-          return isLinkInActivePath(d) ? 4.5 : 0.6;
+          return isLinkInActivePath(d) ? 6.5 : 1.5;
         }
-        if (!isLinkMatchingFilter(d)) return 0.6;
-        if (selectedNodeId === null) return d.type === 'pripadnost' ? 2 : 1.2;
+        if (!isLinkMatchingFilter(d)) return 1.5;
+        if (selectedNodeId === null) return d.type === 'pripadnost' ? 3.8 : 2.5;
         const sId = (d.source as any).id || d.source;
         const tId = (d.target as any).id || d.target;
-        return (sId === selectedNodeId || tId === selectedNodeId) ? 3.5 : 0.6;
+        return (sId === selectedNodeId || tId === selectedNodeId) ? 5.5 : 1.5;
       })
       .attr('stroke-dasharray', d => {
         if (activePath && isLinkInActivePath(d)) return null; 
-        return (d.type === 'suradnja' || d.type === 'umjetnicka_suradnja' || d.type === 'prijateljstvo/utjecaj' ? '4,4' : null);
+        return (d.type === 'suradnja' || d.type === 'umjetnicka_suradnja' || d.type === 'prijateljstvo/utjecaj' || d.type === 'tematska_poveznica' || d.type === 'stil_teksta' ? '4,4' : null);
       });
 
     // Node groups
@@ -794,6 +795,10 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ onNodeSelect, selectedNodeI
             <div className="flex items-center gap-3">
               <span className="w-5 h-0.5 border-t border-dashed border-[#d946ef]"></span>
               <span className="text-[9px] uppercase font-mono font-semibold text-slate-400">Suradnje & Izdanja</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-5 h-0.5 border-t border-dashed border-[#eab308]"></span>
+              <span className="text-[9px] uppercase font-mono font-semibold text-[#eab308]">Poetske & Tematske Veze</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="w-5 h-0.5 bg-[#f43f5e]"></span>
