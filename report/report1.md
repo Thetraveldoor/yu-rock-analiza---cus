@@ -105,7 +105,6 @@ graph TD
     ZG --> FI
     ZG --> HA
 
-*Slika 1: Topološki prikaz mrežnih sila i regionalne fragmentacije unutar platforme YU Rock Network na svijetlo ljubičastoj pozadini.*
 
 ---
 
