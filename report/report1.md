@@ -50,6 +50,7 @@ S ciljem otkrivanja implicitnih veza koje nisu vidljive kroz puko praćenje pers
 
 Aplikacija "YU Rock Network" koristi relacijski sustav za generiranje interaktivnih grafova. Donji grafički model prikazuje relacijske sile unutar sučelja, koristeći kolorističko kodiranje (nježno plava za bendove, svijetlo roza za festivale i stilske okosnice) na svijetlo ljubičastoj pozadini, čime se postiže estetski sklad i maksimalna preglednost:
 
+
 ```mermaid
 graph TD
     %% Stilovi za ljepši vizualni identitet (svijetle boje)
@@ -97,6 +98,8 @@ graph TD
     ZG --> AZ
     ZG --> FI
     ZG --> HA
+
+
 
 ---
 
