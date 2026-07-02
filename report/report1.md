@@ -57,19 +57,53 @@ S ciljem otkrivanja implicitnih veza koje nisu vidljive kroz puko praćenje pers
 
 Aplikacija "YU Rock Network" koristi relacijski sustav za generiranje interaktivnih grafova. Donji grafički model prikazuje relacijske sile unutar sučelja, koristeći kolorističko kodiranje (nježno plava za bendove, svijetlo roza za festivale i stilske okosnice) na svijetlo ljubičastoj pozadini, čime se postiže estetski sklad i maksimalna preglednost:
 
-[ Centralni Hub: Bijelo Dugme (Sarajevo) ]
-│
-├─► (BOOM Festival) ◄─► [ Sastav: Leb i Sol (Skoplje) ]
-│
-├─► [ Personalna Unija: Milić Vukašinović ] ◄─► [ Sastav: Vatreni Poljubac ]
-│
-▼
-[ Regionalni Klaster: Beograd (SKC) ] ◄─── (Slaba veza) ───► [ Regionalni Klaster: Zagreb ]
-│                                                              │
-├─► [ Idoli ] ──► (Paket aranžman)                             ├─► [ Azra ]
-├─► [ Šarlo Akrobata ]                                         ├─► [ Film ]
-└─► [ Električni Orgazam ]                                     └─► [ Haustor ]
+```mermaid
+graph TD
+    %% Stilovi za ljepši vizualni identitet (svijetle boje)
+    classDef default fill:#f3efff,stroke:#6366f1,stroke-width:2px;
+    classDef hub fill:#e0e7ff,stroke:#4338ca,stroke-width:3px,font-weight:bold;
+    classDef festival fill:#fce7f3,stroke:#db2777,stroke-width:2px,shape:stadium;
+    classDef cluster fill:#fef3c7,stroke:#d97706,stroke-width:2px;
 
+    %% Čvorovi i veze
+    BD["Centralni Hub:<br>Bijelo Dugme (Sarajevo)"]:::hub
+    BOOM("(BOOM Festival)"):::festival
+    LS["Sastav:<br>Leb i Sol (Skoplje)"]
+    MV["Personalna Unija:<br>Milić Vukašinović"]
+    VP["Sastav:<br>Vatreni Poljubac"]
+    
+    BG["Regionalni Klaster:<br>Beograd (SKC)"]:::cluster
+    ZG["Regionalni Klaster:<br>Zagreb"]:::cluster
+
+    %% Odnosi unutar centralnog huba
+    BD --> BOOM
+    BOOM <--> LS
+    BD --> MV
+    MV <--> VP
+    BD --> BG
+
+    %% Veza između regionalnih klastera
+    BG -- Slaba veza --> ZG
+
+    %% Beogradski pod-klaster
+    ID["Idoli"]
+    PA("(Paket aranžman)"):::festival
+    SA["Šarlo Akrobata"]
+    EO["Električni Orgazam"]
+
+    BG --> ID
+    ID --> PA
+    BG --> SA
+    BG --> EO
+
+    %% Zagrebački pod-klaster
+    AZ["Azra"]
+    FI["Film"]
+    HA["Haustor"]
+
+    ZG --> AZ
+    ZG --> FI
+    ZG --> HA
 
 *Slika 1: Topološki prikaz mrežnih sila i regionalne fragmentacije unutar platforme YU Rock Network na svijetlo ljubičastoj pozadini.*
 
