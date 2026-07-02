@@ -49,55 +49,96 @@ S ciljem otkrivanja implicitnih veza koje nisu vidljive kroz puko praćenje pers
 ## 3. Arhitektura podataka i vizualna mreža identiteta
 
 Aplikacija "YU Rock Network" koristi relacijski sustav za generiranje interaktivnih grafova. Donji grafički model prikazuje relacijske sile unutar sučelja, koristeći kolorističko kodiranje (nježno plava za bendove, svijetlo roza za festivale i stilske okosnice) na svijetlo ljubičastoj pozadini, čime se postiže estetski sklad i maksimalna preglednost:
+Dobro, očito je da se GitHubov Mermaid parser opasno svađa s okolnim Markdown tekstom i da nam kida živce. Kada Mermaid ne surađuje, idemo na elegantnije, stabilnije i 100% neprobojno rješenje koje GitHub nikada neće krivo protumačiti: Markdown tablični graf (ASCII/Unicode Art) kombiniran s jasnim tekstualnim mapiranjem relacija.
 
-```mermaid
-graph TD
-    %% Stilovi za ljepši vizualni identitet
-    classDef default fill:#f3efff,stroke:#6366f1,stroke-width:2px;
-    classDef hub fill:#e0e7ff,stroke:#4338ca,stroke-width:3px,font-weight:bold;
-    classDef festival fill:#fce7f3,stroke:#db2777,stroke-width:2px,shape:stadium;
-    classDef cluster fill:#fef3c7,stroke:#d97706,stroke-width:2px;
+Ovaj pristup koristi standardne tekstualne simbole za prikaz strukture, što znači da nema parsera, nema vanjskih dodataka i renderira se instantno i savršeno na bilo kojem uređaju.
 
-    %% Čvorovi i veze
-    BD["Centralni Hub:<br>Bijelo Dugme (Sarajevo)"]:::hub
-    BOOM("(BOOM Festival)"):::festival
-    LS["Sastav:<br>Leb i Sol (Skoplje)"]
-    MV["Personalna Unija:<br>Milić Vukašinović"]
-    VP["Sastav:<br>Vatreni Poljubac"]
-    
-    BG["Regionalni Klaster:<br>Beograd (SKC)"]:::cluster
-    ZG["Regionalni Klaster:<br>Zagreb"]:::cluster
+Evo cijelog rada s novim, nepogrešivim vizualnim prikazom mreže:
 
-    %% Odnosi unutar centralnog huba
-    BD --> BOOM
-    BOOM <--> LS
-    BD --> MV
-    MV <--> VP
-    BD --> BG
+Markdown
+# Mreža Jugoslavenskog Rocka: Analiza Relacijske Kohezije i Strukture Scene
 
-    %% Veza između regionalnih klastera
-    BG -. Slaba veza .-> ZG
+**Autor:** Lana Ćus  
+**Institucija:** Filozofski fakultet u Rijeci  
+**Kolegij:** Istraživanje društvenih mreža  
+**Datum:** 25. svibnja 2026.  
 
-    %% Beogradski pod-klaster
-    ID["Idoli"]
-    PA("(Paket aranžman)"):::festival
-    SA["Šarlo Akrobata"]
-    EO["Električni Orgazam"]
+---
 
-    BG --> ID
-    ID --> PA
-    BG --> SA
-    BG --> EO
+### Sažetak
+Ovaj rad donosi detaljnu analizu strukture i relacijske kohezije jugoslavenske rock scene putem naprednih metodologija analize društvenih mreža (SNA). Kroz razvoj i implementaciju digitalnog projekta i platforme *"YU Rock Network"*, rad dekonstruira povijesne interakcije, personalne unije, zajedničke diskografske projekte te stilske utjecaje ključnih aktera ex-YU prostora. Nasuprot uvriježenom mitu o monolitnoj, duboko integriranoj i homogenoj glazbenoj zajednici, rezultati ovog istraživanja empirijski pokazuju visoku razinu fragmentacije scene i njezinu podijeljenost na regionalne pod-klastere. Dok se pojedini sastavi, u prvom redu Bijelo Dugme, pojavljuju kao dominantni mrežni čvorovi visoke centralnosti, cjelokupna topologija mreže ukazuje na prevlast autonomnih umjetničkih putanja i površinskih relacija, transformirajući našu percepciju ex-YU rocka iz jedinstvene zajednice u kompleksan skup izoliranih i poluizoliranih narativa.
 
-    %% Zagrebački pod-klaster
-    AZ["Azra"]
-    FI["Film"]
-    HA["Haustor"]
+---
 
-    ZG --> AZ
-    ZG --> FI
-    ZG --> HA
+## 1. Uvod
 
+Fenomen jugoslavenske rock glazbe već desetljećima predstavlja nepresušan izvor socioloških, kulturoloških i povijesnih istraživanja. Unutar popularnog diskursa i kolektivnog sjećanja, ex-YU rock scena često se idealizira i percipira kao jedinstven, duboko integriran kulturni prostor. Sugerira se postojanje organske, sveprožimajuće mreže u kojoj su stvaraoci neprekidno surađivali, dijelili resurse i djelovali kao kohezivna fronta nasuprot kulturnom establišmentu. Ta pretpostavljena monolitnost danas se uzima kao aksiom. Međutim, historiografska distanca i alati digitalne humanistike omogućuju nam da točnost ovog narativa podvrgnemo strogoj empirijskoj provjeri.
+
+Stvarna povijest jugoslavenskog rocka — koja se proteže od ranih beat sastava šezdesetih, preko progresivnog i hard rock vala sedamdesetih, pa sve do eksplozije Novog vala (New Wave) i sarajevskog Novog primitivizma osamdesetih — bila je duboko uvjetovana i geografskim, administrativnim te socio-ekonomskim specifičnostima tadašnje federacije. Glazbena produkcija bila je primarno koncentrirana oko velikih urbanih centara: Beograda, Zagreba, Sarajeva, te sekundarnih čvorišta poput Rijeke, Ljubljane i Skoplja. Pitanje koje se postavlja jest u kojoj su mjeri ti centri doista komunicirali na razini neposrednih, dubinskih mrežnih veza, a u kojoj su mjeri funkcionirali kao zatvoreni lokalni ekosustavi.
+
+Središnja figura koja se u svakom površinskom promatranju nameće kao gravitacijsko središte ove scene jest sarajevski sastav Bijelo Dugme. Svojim masovnim tržišnim uspjehom, fuzijom folk motiva i rock standarda (tzv. pastirski rock) te čestim personalnim rotacijama, ovaj je sastav uspostavio posve nove standarde unutar jugoslavenske glazbene industrije. No, je li njihova pozicija tržišnog lidera ujedno značila i ulogu strukturnog integracijskog faktora cjelokupne scene? Da bi se odgovorilo na ovo pitanje, rad uvodi analitički model *"YU Rock Network"* koji teži mapirati stvarne veze i relacije, odvajajući subjektivni dojam bliskosti od egzaktnih mrežnih parametara, istražujući povezanost i razlike u pristupima bendova koji su od lokalnih supkultura gradili općeprihvaćenu društvenu stvarnost.
+
+---
+
+## 2. Metoda
+
+Istraživanje i mrežna rekonstrukcija provedeni su razvojem i korištenjem namjenske digitalne platforme **"YU Rock Network"**, koja se oslanja na algoritme za simulaciju sila i mrežne topologije.
+
+### 2.1 Prikupljanje podataka i formiranje korpusa
+U primarni uzorak uvršteni su profili najznačajnijih bendova i solista ex-YU rock scene (od formativnih sastava sedamdesetih do ključnih aktera novovalne ere). Podaci su prikupljani i trijangulirani iz relevantnih rock enciklopedija (npr. Janjatovićeva *Ex YU rock enciklopedija*), arhivskih materijala diskografskih kuća (*Jugoton, PGP-RTB, Suzy*), biografskih monografija te digitalnih repozitorija pop-kulture. Ovim postupkom osigurana je visoka faktografska točnost unesenih relacija.
+
+### 2.2 Kategorizacija i taksonomija čvorova
+Entiteti unutar mreže precizno su podijeljeni i vizualno diferencirani kako bi se omogućilo intuitivno snalaženje u grafu:
+* **Autori i bendovi (Intelektualni i kreativni nositelji):** Prikazani kao kružni čvorovi, diferencirani po regionalnoj pripadnosti ili matičnom gradu.
+* **Glazbeni pravci i stilske formacije (Tematske okosnice):** Prikazani kao trokutasti čvorovi koji služe za prepoznavanje konceptualne srodnosti.
+* **Ključni povijesni događaji i festivali (Identitetski izvori):** Prikazani kao dijamantni čvorovi koji djeluju kao privremena mrežna stjecišta (npr. *BOOM festival, Subotički festival*).
+
+### 2.3 Analiza i klasifikacija veza (Edges)
+Unutar sustava definirane su tri jasne kategorije relacija, pri čemu je svaka veza popraćena kvalitativnim opisom i preciznim utemeljenjem:
+1.  **Personalna unija i fluktuacija članova:** Slučajevi kada su glazbenici svirali ili gostovali u više različitih sastava (npr. Milić Vukašinović, Boris Bele).
+2.  **Izravna kreativna suradnja i zajednički nastupi:** Dokumentirane zajedničke turneje, gostovanja na albumima ili zajednički studijski projekti (npr. *Paket aranžman*).
+3.  **Konceptualni i stilski utjecaji:** Indirektne veze izgrađene na temelju pripadnosti istom estetskom kodu ili preuzimanja specifičnih glazbenih obrazaca.
+
+### 2.4 AI proširenje i detekcija skrivenih relacija
+S ciljem otkrivanja implicitnih veza koje nisu vidljive kroz puko praćenje personalnih unija, u sustav je implementiran **Google Gemini API**. Koristeći naprednu analizu diskursa i povijesnih tekstova (kritika, recenzija iz časopisa *Džuboks* i *Polet*), AI komponenta je detektirala suptilne slojeve estetskog i društvenog kontinuiteta. Sustav je tako identificirao zajedničke stilske i tekstualne idiome te ponudio automatizirane sugestije za povezivanje čvorova koji su geografski ili kronološki bili udaljeni, ali su dijelili identičnu poziciju unutar šireg kulturnog polja.
+
+---
+
+## 3. Arhitektura podataka i vizualna mreža identiteta
+
+Aplikacija "YU Rock Network" koristi relacijski sustav za generiranje topoloških prikaza. Kako bismo izbjegli nestabilnosti eksternih parsera, struktura relacijskih sila i regionalne fragmentacije scene prikazana je kroz fiksni topološki dijagram strukture:
+
+```text
+=================================================================================
+                      CENTRALNI STRUKTURNI HUB (SARAJEVO)
+=================================================================================
+                                [BIJELO DUGME]
+                                      │
+             ┌────────────────────────┼────────────────────────┐
+             ▼                        ▼                        ▼
+      (BOOM Festival)        [Milić Vukašinović]      Regionalni Utjecaj
+             │                        │                        │
+             ▼                        ▼                        ▼
+       [Leb i Sol]            [Vatreni Poljubac]       [Beogradski Klaster]
+      ((Skoplje))                ((Hard Rock))                 │
+                                                               ░ (Slaba veza)
+                                                               ▼
+                                                       [Zagrebački Klaster]
+
+=================================================================================
+                       REGIONALNI POD-KLASTERI (NOVI VAL)
+=================================================================================
+
+    A) BEOGRADSKI KLASTER (SKC)               B) ZAGREBAČKI KLASTER
+    ───────────────────────────               ─────────────────────
+          [Beograd (SKC)]                           [Zagreb]
+                 │                                     │
+         ┌───────┼───────┐                     ┌───────┼───────┐
+         ▼       ▼       ▼                     ▼       ▼       ▼
+      [Idoli] [Šarlo] [Orgazam]             [Azra]  [Film]  [Haustor]
+         │
+         ▼
+  (Paket aranžman)
 
 ---
 
