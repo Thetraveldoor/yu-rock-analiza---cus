@@ -5,13 +5,6 @@
 **Datum:** 25.05.2026
 
 ---
-# Mreža Jugoslavenskog Rocka: Analiza Relacijske Kohezije i Strukture Scene
-
-**Autor:** Lana Ćus  
-**Institucija:** Filozofski fakultet u Rijeci  
-**Kolegij:** Istraživanje društvenih mreža  
-**Datum:** 25. svibnja 2026.  
-
 ---
 
 ### Sažetak
@@ -83,7 +76,7 @@ graph TD
     BD --> BG
 
     %% Veza između regionalnih klastera
-    BG -- Slaba veza --> ZG
+    BG -. Slaba veza .-> ZG
 
     %% Beogradski pod-klaster
     ID["Idoli"]
@@ -104,7 +97,6 @@ graph TD
     ZG --> AZ
     ZG --> FI
     ZG --> HA
-
 
 ---
 
